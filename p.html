@@ -1,0 +1,184 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Simple CRM with Image Slider</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper/swiper-bundle.min.css">
+    <style>
+        body { font-family: 'Times New Roman', Times, serif; padding: 0px; background-color: #f4f4f4; text-align: center; margin: 20; }
+        .navbar { display: flex; align-items: center; justify-content: space-between; background: #9086eb; padding: 10px 20px; color: white; }
+        .navbar img { width: 450px; }
+        .nav-links { display: flex; gap: 20px; }
+        .nav-links a { color: white; text-decoration: none; font-size: 25px; cursor: pointer; }
+        .nav-links a:hover { text-decoration: underline; }
+        .container { max-width: 4000px; margin: auto; background: white; padding: 100px; border-radius: 10px; box-shadow: 0 0 10px rgba(0, 0, 0, 0.1); margin-top: 20px; }
+        table { width: 100%; margin-top: 20px; border-collapse: collapse; }
+        table, th, td { border: 1px solid black; }
+        th, td { padding: 10px; text-align: center; }
+        .hidden { display: none; }
+
+        .swiper { width: 100%; height: 800px; border-radius: 10px; margin-bottom: 20px; }
+        .swiper-slide img { width: 100%; height: 100%; object-fit: cover; border-radius: 8px; }
+        .swiper-button-next, .swiper-button-prev { color: white; }
+        .swiper-pagination-bullet-active { background-color: white; }
+
+        .logo-slider-container { margin-top: 10px; }
+        .logo-swiper { width: 90%; height: 110px; }
+        .logo-swiper .swiper-slide img { width: 125px; height: auto; object-fit: contain; }
+    </style>
+</head>
+<body>
+    <nav class="navbar">
+        <img src="https://ids.co.id/wp-content/uploads/2022/09/logo-new.png" alt="Logo IDS Indonesia">
+        <div class="nav-links">
+            <a onclick="showHome()">Home</a>
+            <a onclick="showAboutUs()">About Us</a>
+            <a onclick="showCRMTracker()">Services</a>
+        </div>
+    </nav>
+
+    <div class="container" id="homeSection">
+        <h2>Selamat Datang di IDS Indonesia</h2>
+    
+        <!-- Image Slider -->
+        <div class="swiper mySwiper">
+            <div class="swiper-wrapper">
+                <div class="swiper-slide">
+                    <img src="https://tse4.mm.bing.net/th?id=OIP.iUk9cOAwDiZ_h3Uty7cn0AHaEK&pid=Api&P=0&h=220" alt="Proile 1">
+                </div>
+                <div class="swiper-slide">
+                    <img src="https://tse2.mm.bing.net/th?id=OIP.L78t6sUAaVRLb6nEf9CwbAHaEK&pid=Api&P=0&h=220" alt="Profile 2">
+                </div>
+                <div class="swiper-slide">
+                    <img src="https://ids.co.id/wp-content/uploads/2022/09/favicon-white.png" alt="Profile 3">
+                </div>
+            </div>
+            <div class="swiper-button-next"></div>
+            <div class="swiper-button-prev"></div>
+            <div class="swiper-pagination"></div>
+        </div>
+    </div>
+
+    <div class="container hidden" id="aboutUsSection">
+        <h2>About Us</h2>
+        <p><strong>Phone:</strong>  02129219419</p>
+        <p><strong>Email:</strong> info@idsindonesia.co.id</p>
+        <p><strong>Instagram:</strong> <a href="https://www.instagram.com/idsindonesia/" target="_blank">@idsindonesia</a></p>
+        <p><strong>TikTok:</strong> <a href="https://www.tiktok.com/@idsindonesia" target="_blank">@idsindonesia</a></p>
+        <p><strong>Alamat:</strong> Komplek Legenda Wisata Cibubur, Ruko Newton, Jl. Legenda Wisata Boulevard No.6 Blok U11, Nagrak, Kec. Gn. Putri, Kabupaten Bogor, Jawa Barat 16967</p>
+    </div>
+
+    <div class="container hidden" id="crmTracker">
+        <h2>CRM Tracker</h2>
+        <label>Customer Name:</label>
+        <input type="text" id="customerName"><br>
+        <label>Email:</label>
+        <input type="email" id="customerEmail"><br>
+        <label>Status:</label>
+        <select id="customerStatus">
+            <option value="Open">Open</option>
+            <option value="Pending">Pending</option>
+            <option value="Closed">Closed</option>
+        </select><br>
+        <button onclick="addCustomer()">Add Customer</button>
+
+        <h3>Customer List</h3>
+        <table>
+            <thead>
+                <tr>
+                    <th>Name</th>
+                    <th>Email</th>
+                    <th>Status</th>
+                </tr>
+            </thead>
+            <tbody id="customerTableBody"></tbody>
+        </table>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/swiper/swiper-bundle.min.js"></script>
+    <script>
+        document.addEventListener("DOMContentLoaded", function() {
+            // Image Slider
+            var swiper = new Swiper(".mySwiper", {
+                loop: true,
+                autoplay: {
+                    delay: 1000,
+                    disableOnInteraction: false
+                },
+                navigation: {
+                    nextEl: ".mySwiper .swiper-button-next",
+                    prevEl: ".mySwiper .swiper-button-prev"
+                },
+                pagination: {
+                    el: ".mySwiper .swiper-pagination",
+                    clickable: true
+                }
+            });
+
+            // Logo Slider
+            var logoSwiper = new Swiper(".logo-swiper", {
+                slidesPerView: 1,
+                spaceBetween: 1,
+                loop: true,
+                autoplay: {
+                    delay: 1000,
+                    disableOnInteraction: false
+                },
+                navigation: {
+                    nextEl: ".logo-swiper .swiper-button-next",
+                    prevEl: ".logo-swiper .swiper-button-prev"
+                },
+                pagination: {
+                    el: ".logo-swiper .swiper-pagination",
+                    clickable: true
+                },
+                breakpoints: {
+                    320: { slidesPerView: 2 },
+                    480: { slidesPerView: 3 },
+                    700: { slidesPerView: 4 },
+                    720: { slidesPerView: 6 }
+                }
+            });
+        });
+
+        function showHome() {
+            document.getElementById('homeSection').classList.remove('hidden');
+            document.getElementById('aboutUsSection').classList.add('hidden');
+            document.getElementById('crmTracker').classList.add('hidden');
+        }
+
+        function showAboutUs() {
+            document.getElementById('aboutUsSection').classList.remove('hidden');
+            document.getElementById('homeSection').classList.add('hidden');
+            document.getElementById('crmTracker').classList.add('hidden');
+        }
+
+        function showCRMTracker() {
+            document.getElementById('crmTracker').classList.remove('hidden');
+            document.getElementById('homeSection').classList.add('hidden');
+            document.getElementById('aboutUsSection').classList.add('hidden');
+        }
+
+        function addCustomer() {
+            let customerName = document.getElementById('customerName').value;
+            let customerEmail = document.getElementById('customerEmail').value;
+            let customerStatus = document.getElementById('customerStatus').value;
+
+            if (!customerName || !customerEmail) {
+                alert("Please enter customer name and email.");
+                return;
+            }
+
+            let tableBody = document.getElementById('customerTableBody');
+            let row = tableBody.insertRow();
+            row.insertCell(0).innerHTML = customerName;
+            row.insertCell(1).innerHTML = customerEmail;
+            row.insertCell(2).innerHTML = customerStatus;
+
+            document.getElementById('customerName').value = "";
+            document.getElementById('customerEmail').value = "";
+        }
+    </script>
+</body>
+</html>
