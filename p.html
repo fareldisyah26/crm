@@ -3,181 +3,117 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Simple CRM with Image Slider</title>
+    <title>Modern CRM System</title>
+    <script src="https://cdn.tailwindcss.com"></script>
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper/swiper-bundle.min.css">
-    <style>
-        body { font-family: 'Times New Roman', Times, serif; padding: 0px; background-color: #f4f4f4; text-align: center; margin: 20; }
-        .navbar { display: flex; align-items: center; justify-content: space-between; background: #9086eb; padding: 10px 20px; color: white; }
-        .navbar img { width: 450px; }
-        .nav-links { display: flex; gap: 20px; }
-        .nav-links a { color: white; text-decoration: none; font-size: 25px; cursor: pointer; }
-        .nav-links a:hover { text-decoration: underline; }
-        .container { max-width: 4000px; margin: auto; background: white; padding: 100px; border-radius: 10px; box-shadow: 0 0 10px rgba(0, 0, 0, 0.1); margin-top: 20px; }
-        table { width: 100%; margin-top: 20px; border-collapse: collapse; }
-        table, th, td { border: 1px solid black; }
-        th, td { padding: 10px; text-align: center; }
-        .hidden { display: none; }
-
-        .swiper { width: 100%; height: 800px; border-radius: 10px; margin-bottom: 20px; }
-        .swiper-slide img { width: 100%; height: 100%; object-fit: cover; border-radius: 8px; }
-        .swiper-button-next, .swiper-button-prev { color: white; }
-        .swiper-pagination-bullet-active { background-color: white; }
-
-        .logo-slider-container { margin-top: 10px; }
-        .logo-swiper { width: 90%; height: 110px; }
-        .logo-swiper .swiper-slide img { width: 125px; height: auto; object-fit: contain; }
-    </style>
 </head>
-<body>
-    <nav class="navbar">
-        <img src="https://ids.co.id/wp-content/uploads/2022/09/logo-new.png" alt="Logo IDS Indonesia">
-        <div class="nav-links">
-            <a onclick="showHome()">Home</a>
-            <a onclick="showAboutUs()">About Us</a>
-            <a onclick="showCRMTracker()">Services</a>
+<body class="bg-gray-100 text-gray-900">
+    <nav class="bg-blue-500 p-4 flex justify-between items-center text-white shadow-lg">
+        <img src="https://ids.co.id/wp-content/uploads/2022/09/logo-new.png" alt="Logo IDS Indonesia" class="w-48">
+        <div class="space-x-6 text-lg font-semibold">
+            <button onclick="showHome()" class="hover:underline">Home</button>
+            <button onclick="showAboutUs()" class="hover:underline">About Us</button>
+            <button onclick="showCRM()" class="hover:underline">CRM</button>
         </div>
     </nav>
 
-    <div class="container" id="homeSection">
-        <h2>Selamat Datang di IDS Indonesia</h2>
-    
-        <!-- Image Slider -->
-        <div class="swiper mySwiper">
+    <div class="container mx-auto mt-10 p-8 bg-white rounded-lg shadow-lg" id="homeSection">
+        <h2 class="text-4xl font-bold text-center text-indigo-700">Selamat Datang di IDS Indonesia</h2>
+        <p class="text-center text-gray-600 mt-2 text-lg">Kami siap membantu Anda dalam solusi bisnis terbaik dengan teknologi terkini.</p>
+        <div class="swiper mySwiper mt-6 rounded-lg overflow-hidden">
             <div class="swiper-wrapper">
-                <div class="swiper-slide">
-                    <img src="https://tse4.mm.bing.net/th?id=OIP.iUk9cOAwDiZ_h3Uty7cn0AHaEK&pid=Api&P=0&h=220" alt="Proile 1">
-                </div>
-                <div class="swiper-slide">
-                    <img src="https://tse2.mm.bing.net/th?id=OIP.L78t6sUAaVRLb6nEf9CwbAHaEK&pid=Api&P=0&h=220" alt="Profile 2">
-                </div>
-                <div class="swiper-slide">
-                    <img src="https://ids.co.id/wp-content/uploads/2022/09/favicon-white.png" alt="Profile 3">
-                </div>
+                <div class="swiper-slide"><img src="https://surl.li/wwmgzp" class="w-full"></div>
+                <div class="swiper-slide"><img src="https://surl.li/myaeyq" class="w-full"></div>
+                <div class="swiper-slide"><img src="data:image/jpeg;base64,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" class="w-full"></div>
             </div>
-            <div class="swiper-button-next"></div>
-            <div class="swiper-button-prev"></div>
             <div class="swiper-pagination"></div>
         </div>
     </div>
 
-    <div class="container hidden" id="aboutUsSection">
-        <h2>About Us</h2>
-        <p><strong>Phone:</strong>  02129219419</p>
-        <p><strong>Email:</strong> info@idsindonesia.co.id</p>
-        <p><strong>Instagram:</strong> <a href="https://www.instagram.com/idsindonesia/" target="_blank">@idsindonesia</a></p>
-        <p><strong>TikTok:</strong> <a href="https://www.tiktok.com/@idsindonesia" target="_blank">@idsindonesia</a></p>
-        <p><strong>Alamat:</strong> Komplek Legenda Wisata Cibubur, Ruko Newton, Jl. Legenda Wisata Boulevard No.6 Blok U11, Nagrak, Kec. Gn. Putri, Kabupaten Bogor, Jawa Barat 16967</p>
+    <div class="container mx-auto mt-10 p-8 bg-white rounded-lg shadow-lg hidden" id="aboutUsSection">
+        <h2 class="text-4xl font-bold text-indigo-700">About Us</h2>
+        <p class="text-gray-600 mt-2 text-lg">Kami adalah perusahaan yang bergerak di bidang teknologi dan inovasi, berfokus pada solusi digital terbaik.</p>
+        <div class="mt-6 space-y-2 text-lg">
+            <p><strong class="text-indigo-600">Phone:</strong> 02129219419</p>
+            <p><strong class="text-indigo-600">Email:</strong> info@idsindonesia.co.id</p>
+            <p><strong class="text-indigo-600">Instagram:</strong> <a href="https://www.instagram.com/idsindonesia/" target="_blank" class="text-indigo-500">@idsindonesia</a></p>
+            <p><strong class="text-indigo-600">Alamat:</strong> Komplek Legenda Wisata Cibubur, Ruko Newton, Jl. Legenda Wisata Boulevard No.6 Blok U11, Nagrak, Kec. Gn. Putri, Kabupaten Bogor, Jawa Barat 16967</p>
+        </div>
     </div>
 
-    <div class="container hidden" id="crmTracker">
-        <h2>CRM Tracker</h2>
-        <label>Customer Name:</label>
-        <input type="text" id="customerName"><br>
-        <label>Email:</label>
-        <input type="email" id="customerEmail"><br>
-        <label>Status:</label>
-        <select id="customerStatus">
-            <option value="Open">Open</option>
-            <option value="Pending">Pending</option>
-            <option value="Closed">Closed</option>
-        </select><br>
-        <button onclick="addCustomer()">Add Customer</button>
-
-        <h3>Customer List</h3>
-        <table>
-            <thead>
-                <tr>
-                    <th>Name</th>
-                    <th>Email</th>
-                    <th>Status</th>
-                </tr>
-            </thead>
-            <tbody id="customerTableBody"></tbody>
-        </table>
+    <div class="container mx-auto mt-10 p-8 bg-white rounded-lg shadow-lg hidden" id="crmSection">
+        <h2 class="text-4xl font-bold text-indigo-700">CRM Tracker</h2>
+        <p class="text-gray-600 mt-2 text-lg">Masukkan informasi pelanggan di bawah ini.</p>
+        <div class="mt-6">
+            <input id="name" type="text" placeholder="Nama" class="w-full p-2 border rounded-lg mb-3">
+            <input id="email" type="email" placeholder="Email" class="w-full p-2 border rounded-lg mb-3">
+            <select id="status" class="w-full p-2 border rounded-lg mb-3">
+                <option value="Open">Open</option>
+                <option value="Proses">Proses</option>
+                <option value="Finish">Finish</option>
+            </select>
+            <button onclick="addEntry()" class="bg-indigo-600 text-white px-6 py-2 rounded-lg shadow-md hover:bg-indigo-700">Tambah Data</button>
+        </div>
+        <div class="mt-6">
+            <h3 class="text-2xl font-semibold text-indigo-700 text-center">Daftar CRM</h3>
+            <table class="w-full mt-4 border-collapse border border-gray-300 text-center">
+                <thead>
+                    <tr class="bg-gray-200">
+                        <th class="border border-gray-300 p-2">Nama</th>
+                        <th class="border border-gray-300 p-2">Email</th>
+                        <th class="border border-gray-300 p-2">Status</th>
+                    </tr>
+                </thead>
+                <tbody id="crmList">
+                </tbody>
+            </table>
+        </div>
     </div>
 
     <script src="https://cdn.jsdelivr.net/npm/swiper/swiper-bundle.min.js"></script>
     <script>
         document.addEventListener("DOMContentLoaded", function() {
-            // Image Slider
             var swiper = new Swiper(".mySwiper", {
                 loop: true,
-                autoplay: {
-                    delay: 1000,
-                    disableOnInteraction: false
-                },
-                navigation: {
-                    nextEl: ".mySwiper .swiper-button-next",
-                    prevEl: ".mySwiper .swiper-button-prev"
-                },
-                pagination: {
-                    el: ".mySwiper .swiper-pagination",
-                    clickable: true
-                }
-            });
-
-            // Logo Slider
-            var logoSwiper = new Swiper(".logo-swiper", {
-                slidesPerView: 1,
-                spaceBetween: 1,
-                loop: true,
-                autoplay: {
-                    delay: 1000,
-                    disableOnInteraction: false
-                },
-                navigation: {
-                    nextEl: ".logo-swiper .swiper-button-next",
-                    prevEl: ".logo-swiper .swiper-button-prev"
-                },
-                pagination: {
-                    el: ".logo-swiper .swiper-pagination",
-                    clickable: true
-                },
-                breakpoints: {
-                    320: { slidesPerView: 2 },
-                    480: { slidesPerView: 3 },
-                    700: { slidesPerView: 4 },
-                    720: { slidesPerView: 6 }
-                }
+                autoplay: { delay: 500, disableOnInteraction: false },
+                pagination: { el: ".swiper-pagination", clickable: true }
             });
         });
 
         function showHome() {
             document.getElementById('homeSection').classList.remove('hidden');
             document.getElementById('aboutUsSection').classList.add('hidden');
-            document.getElementById('crmTracker').classList.add('hidden');
+            document.getElementById('crmSection').classList.add('hidden');
         }
 
         function showAboutUs() {
             document.getElementById('aboutUsSection').classList.remove('hidden');
             document.getElementById('homeSection').classList.add('hidden');
-            document.getElementById('crmTracker').classList.add('hidden');
+            document.getElementById('crmSection').classList.add('hidden');
         }
 
-        function showCRMTracker() {
-            document.getElementById('crmTracker').classList.remove('hidden');
+        function showCRM() {
+            document.getElementById('crmSection').classList.remove('hidden');
             document.getElementById('homeSection').classList.add('hidden');
             document.getElementById('aboutUsSection').classList.add('hidden');
         }
 
-        function addCustomer() {
-            let customerName = document.getElementById('customerName').value;
-            let customerEmail = document.getElementById('customerEmail').value;
-            let customerStatus = document.getElementById('customerStatus').value;
+        function addEntry() {
+            let name = document.getElementById("name").value;
+            let email = document.getElementById("email").value;
+            let status = document.getElementById("status").value;
 
-            if (!customerName || !customerEmail) {
-                alert("Please enter customer name and email.");
-                return;
+            if(name && email) {
+                let table = document.getElementById("crmList");
+                let row = table.insertRow();
+                row.insertCell(0).innerText = name;
+                row.insertCell(1).innerText = email;
+                row.insertCell(2).innerText = status;
+                
+                document.getElementById("name").value = "";
+                document.getElementById("email").value = "";
+                document.getElementById("status").value = "Open";
             }
-
-            let tableBody = document.getElementById('customerTableBody');
-            let row = tableBody.insertRow();
-            row.insertCell(0).innerHTML = customerName;
-            row.insertCell(1).innerHTML = customerEmail;
-            row.insertCell(2).innerHTML = customerStatus;
-
-            document.getElementById('customerName').value = "";
-            document.getElementById('customerEmail').value = "";
         }
     </script>
 </body>
